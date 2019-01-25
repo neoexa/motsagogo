@@ -1,1 +1,52 @@
-<button (click) = "searchWord()"> test </button>
+<mat-card class="searchcard">
+    <form class="search-form">
+        <mat-form-field class="searchbar">
+            <input matInput name="sword" [(ngModel)]="sword" placeholder="Rechercher" >
+        </mat-form-field>
+        
+        <button mat-flat-button (click)="searchWord(sword)" color="primary">Rechercher</button>
+    </form>
+</mat-card>
+
+<mat-card class="maincard" *ngIf="gotResponse">
+
+    <div class="mot">
+        <h1> {{sword}} </h1> 
+    </div>
+
+    <div *ngFor="let def of definitions" class="def-container">
+        <div>
+            <p>Def: {{ def.definition | json }}</p>
+            <p *ngIf="def.exemples.length > 0">Exe: {{ def.exemples | json }}</p>
+        </div>
+    </div>
+</mat-card>
+
+
+<mat-card class="rel-chkb" *ngIf="gotResponse">
+    <mat-card-content>
+        <h2 class="example-h2">Filtrage des relations: </h2>
+        <div class="container">
+                <div *ngFor="let item of selectedCheckBoxes; let i = index;">
+                    <mat-checkbox [checked]="item.checked" (change)="onChange($event, i, item)">
+                      {{item.relName}}
+                    </mat-checkbox>
+                </div>
+            </div>
+    </mat-card-content>
+</mat-card>
+
+<app-result-table [nodeElementData]="nodeElementData" [displayedColumns]="displayedColumns" [columnsToDisplay]="columnsToDisplay" *ngIf="tableDataReady"></app-result-table>
+
+
+    <!--
+    <div *ngFor= "let rel of relationList" class="rel-buttons-container">
+        <button mat-raised-button (click)="filterButtonChange()" class="filterbutton"> {{rel}} </button>    
+    </div>
+    -->
+
+
+
+
+
+

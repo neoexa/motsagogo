@@ -1,0 +1,18 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -3%
+}
+
+h1 {
+    padding-left: 60pt;
+    font-size: 60pt;
+    color: #F4976C;
+    font-family: 'channel';
+}
+
+@font-face {
+    font-family: channel;
+    src: url(src/assets/fonts/Channel.ttf) format("opentype");
+}

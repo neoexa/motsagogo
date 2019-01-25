@@ -1,20 +1,45 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTableModule} from '@angular/material/table';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
 import { DisplayResultComponent } from './display-result/display-result.component';
 
 import { HttpClientModule } from '@angular/common/http'; 
 import { JdmService } from './services/jdm.service';
+import { ResultTableComponent } from './result-table/result-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DisplayResultComponent
+    DisplayResultComponent,
+    ResultTableComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [JdmService],
   bootstrap: [AppComponent]

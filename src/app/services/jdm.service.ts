@@ -10,13 +10,12 @@ import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface
 })
 
 export class JdmService {
-  private query: string;
   private API_URL: string = environment.REZODUMP_API_URL;
 
   constructor(private http: HttpClient) { }
 
   getDetails(query) {
-    return this.http.get(`${this.API_URL}/mots/${this.query}`)
+    return this.http.get(`${this.API_URL}/mots/${query}`, {responseType: 'json'})
   }
 
 }
