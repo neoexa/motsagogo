@@ -9,6 +9,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator'; 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +20,8 @@ import { DisplayResultComponent } from './display-result/display-result.componen
 import { HttpClientModule } from '@angular/common/http'; 
 import { JdmService } from './services/jdm.service';
 import { ResultTableComponent } from './result-table/result-table.component';
+
+import {MatSortModule, MatFormFieldModule, MatAutocompleteModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,11 @@ import { ResultTableComponent } from './result-table/result-table.component';
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatSortModule
   ],
   providers: [JdmService],
   bootstrap: [AppComponent]

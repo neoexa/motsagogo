@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -3%
+    margin-top: 3%;
 }
 
 h1 {
@@ -10,6 +10,11 @@ h1 {
     font-size: 60pt;
     color: #F4976C;
     font-family: 'channel';
+}
+
+img {
+    width: 100px;
+    height: 100px;
 }
 
 @font-face {

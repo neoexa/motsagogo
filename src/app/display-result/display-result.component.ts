@@ -1,21 +1,10 @@
-import { Component, OnInit, ReflectiveInjector } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { JdmService } from '../services/jdm.service';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 
-export interface nodeElement {
-  id:string;
-  name:string;
-  type_name: string;
-  type_rel:string;
-  weight: string;
-  relIn: boolean;
-}
-
-export interface checkBox {
-  relName :string;
-  checked :boolean;
-}
 
 
 @Component({
@@ -26,109 +15,56 @@ export interface checkBox {
 
 export class DisplayResultComponent implements OnInit {
   
+  myControl = new FormControl();
   sword : string;
+  filteredOptions: Observable<string[]>;
+  options: string[] = [];
+  
   response: any; 
   gotResponse: boolean = false;
-  tableDataReady: boolean = false;
-
-  definitions : [];
-  relationList : string[] = [];
-  selectedCheckBoxes: checkBox[] = [];
   
-
-  nodesList : Object[] = [];
-
-  displayedColumns: string[] = ['id', 'name', 'type_name', 'type_rel', 'weight', 'relIn'];
-  columnsToDisplay: string[] = this.displayedColumns.slice();
-  nodeElementData: nodeElement[] = [];
- 
- 
+  
   
   constructor(private jdmService : JdmService) { }
 
   searchWord(searchword){
-    this.tableDataReady = false;
     this.gotResponse = false;
     return this.jdmService.getDetails(searchword)
     .subscribe(res => {
       this.response = res;
-      this.initDefinitions();
-      this.initRelTypes();
-      this.initCheckBoxData();
-      this.initNodeTable();
       this.gotResponse = true;
-      this.tableDataReady = true;
+      this.initAutocomplete();
+      
       })
   
   }
 
-  initDefinitions(){
-    this.definitions = this.response.definition;
+
+  ngOnInit() {  
+
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
 
-  initRelTypes(){
-    let rels = this.response.rels_types_dico;
-    for (var key in rels) {
-      if (rels.hasOwnProperty(key)) {
-         this.relationList.push(rels[key]);
-      }
-   }
-  } 
   
-  initNodeTable(){
-    let nodesIn = this.response.rels_in_dico;
-    let nodesOut = this.response.rels_out_dico;
-    
-    this.nodeElementData = [];
 
-    nodesIn.forEach((element :any) => {
-      this.selectedCheckBoxes.forEach(elementBox => {
-        
-        if (elementBox.checked && element.type_name == elementBox.relName){
-          let tempNode : nodeElement = {id : element.node.id, name : element.node.name,  type_name : element.node.type_name , type_rel : element.type_name, weight : element.w,  relIn : true}
-          this.nodeElementData.push(tempNode);      
-        }
-        
-        
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
-      });      
-      
-      
-    });
-
-    nodesOut.forEach((element:any) => {
-      this.selectedCheckBoxes.forEach(elementBox => {
-        if (elementBox.checked && element.type_name == elementBox.relName){
-          let tempNode : nodeElement = {id : element.node.id, name : element.node.name,  type_name : element.node.type_name , type_rel : element.type_name, weight : element.w,  relIn : false}
-          this.nodeElementData.push(tempNode);   
-        }   
-      
-    });
-    
-  });
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  initCheckBoxData(){
-    for (let index = 0; index < this.relationList.length; index++) {
-       let tempCheckBox : checkBox = {relName : this.relationList[index], checked : true}
-       this.selectedCheckBoxes.push(tempCheckBox);
-      
-    }
+  initAutocomplete(){
     
-  }
-
-  onChange(event, index, item){
-    item.checked = !item.checked;
-    this.initNodeTable();
-
-    console.log(this.selectedCheckBoxes);
-    
-  }
-
- 
-
-  ngOnInit() {
+    return this.jdmService.getEntries()
+    .subscribe(res => {
+      //parcourir filtre et mettre en attribut 
+      this.options = res.split(",");
+      //console.log(this.options);
+      })
   
   }
-
 }

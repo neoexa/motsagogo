@@ -1,0 +1,69 @@
+table {
+    width: 100%;
+    align-self: auto;
+}
+
+.maincard {
+    margin-top: 5%;
+    background-color: #edeae5;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+.relselectcard {
+    align-content: stretch;
+    margin-top: 3%;
+    background-color: #edeae5;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+}
+
+.tablecard {
+    margin-top: 3%;
+    background-color: #edeae5;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.rel-chkb {
+    align-content: stretch;
+    margin-top: 3%;
+    background-color: #edeae5;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%; 
+}
+
+.search-form{
+   display: flex;
+   flex-direction: column; 
+   align-content: center;  
+}
+
+.search-form > * {
+    width: 40%;
+    
+}
+
+.mot{
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16pt;
+    text-transform: capitalize;
+    color: #303c6C;
+}
+
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #303c6C;
+}
+  
+.filterbutton {
+    margin: 5px 5px;
+}
+
+.rel-chkbx-section {
+    display: inline-block;
+}

@@ -1,41 +1,69 @@
-<table mat-table [dataSource]="nodeElementData" class="mat-elevation-z8">
+<mat-card class="maincard">
 
+    <div class="mot">
+        <h1> Définitions </h1> 
+    </div>
+
+    <div *ngFor="let def of definitions" class="def-container">
+        <div>
+            <p>Def: {{ def.definition | json }}</p>
+            <p *ngIf="def.exemples.length > 0">Exe: {{ def.exemples | json }}</p>
+        </div>
+    </div>
+</mat-card>
+
+
+<mat-card class="rel-chkb">
+    <mat-card-content>
+        <h2 class="example-h2">Filtrage des relations: </h2>
+        <div class="container">
+                <div *ngFor="let item of selectedCheckBoxes; let i = index;">
+                    <mat-checkbox [checked]="item.checked" (change)="onChange($event, i, item)">
+                      {{item.relName}}
+                    </mat-checkbox>
+                </div>
+            </div>
+    </mat-card-content>
+</mat-card>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="datasource" matSort>
     <!-- Name Column -->
     <ng-container matColumnDef="id">
-           <th mat-header-cell *matHeaderCellDef> Relation </th>
-           <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-         </ng-container>
-
-   <!-- Name Column -->
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Relation </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-           <th mat-header-cell *matHeaderCellDef> Noeud </th>
-           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-         </ng-container>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Noeud </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="type_name">
-           <th mat-header-cell *matHeaderCellDef> Type Noeud </th>
-           <td mat-cell *matCellDef="let element"> {{element.type_name}} </td>
-   </ng-container>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Type Noeud </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_name}} </td>
+    </ng-container>
 
-   <ng-container matColumnDef="type_rel">
-     <th mat-header-cell *matHeaderCellDef> Type Relation </th>
-     <td mat-cell *matCellDef="let element"> {{element.type_rel}} </td>
-   </ng-container>
+    <ng-container matColumnDef="type_rel">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Type Relation </th>
+        <td mat-cell *matCellDef="let element"> {{element.type_rel}} </td>
+    </ng-container>
 
-   <ng-container matColumnDef="weight">
-           <th mat-header-cell *matHeaderCellDef> Poids </th>
-           <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-   </ng-container>
+    <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Poids </th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    </ng-container>
 
-   <ng-container matColumnDef="relIn">
-           <th mat-header-cell *matHeaderCellDef> Rel Entrante ? </th>
-           <td mat-cell *matCellDef="let element"> {{element.relIn}} </td>
-   </ng-container>
+    <ng-container matColumnDef="relIn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Rel Entrante ? </th>
+            <td mat-cell *matCellDef="let element"> {{element.relIn}} </td>
+    </ng-container>
 
- 
-   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
- </table>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

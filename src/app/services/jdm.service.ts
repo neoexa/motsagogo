@@ -18,4 +18,8 @@ export class JdmService {
     return this.http.get(`${this.API_URL}/mots/${query}`, {responseType: 'json'})
   }
 
+  getEntries() {
+  	return this.http.get(`${this.API_URL}/autocomplete`, {responseType: 'text'})
+  }
+
 }
